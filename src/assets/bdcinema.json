@@ -1,0 +1,63 @@
+{
+    "itens": [
+        {
+            "name": "Rio Grande",
+            "children": [
+                {
+                    "name": "Cinesystem Praça Rio Grande Shopping",                                            
+                    "endereco": "Shopping Praça, R. Jockey Clube, 155 - Vila Prado, Rio Grande - RS, 96212-730",
+                    "inteira": "R$ 26,00",
+                    "meia": "R$ 13,00",
+                    "latitude": "-32.0572075",
+                    "longitude": "-52.1507448"                
+		        },
+                {
+                    "name": "Cinesercla Partage Rio Grande",                        
+                    "endereco": "Partage Shopping, Avenida Engenheira Lúcia Maria Balbela Chiesa, 2986 - Loja 203 - Parque Res. Sao Pedro, RS, 96216-400",
+                    "inteira": "R$ 22,00",
+                    "meia": "R$ 11,00",
+                    "latitude": "-32.1119667",
+                    "longitude": "-52.1755499"
+                },
+                {
+                    "name": "Cine Dunas",                        
+                    "endereco": "Av. Rio Grande, 451 - Cassino, Rio Grande - RS, 96205-001",
+                    "inteira": "R$ 20,00",
+                    "meia": "R$ 10,00",
+                    "latitude": "-32.178132",
+                    "longitude": "-52.166542"
+                }
+            ]
+        },
+        {
+            "name": "Pelotas",
+            "children": [
+                {
+                    "name": "Cineart",                                            
+                    "endereco": "Shopping Calçadão, R. Andrade Neves, 1934, Pelotas - RS, 96015-280",
+                    "inteira": "R$ 19,00",
+                    "meia": "R$ 9,50",                    
+                    "latitude": "-31.7666742",
+                    "longitude": "-52.3411873"
+                },
+                {
+                    "name": "Cineflix Shopping Pelotas",                        
+                    "endereco": "Av. Ferreira Viana, 1526 - Areal, Pelotas - RS, 96085-000",
+                    "inteira": "R$ 22,00",
+                    "meia": "R$ 11,00",
+                    "latitude": "-31.761464",
+                    "longitude": "-52.318331"                    
+                },
+                {
+                    "name": "Cine Ufpel",                        
+                    "endereco": "R. Lôbo da Costa, 447 - Centro, Pelotas - RS, 96010-150",
+                    "inteira": "R$ 20,00",
+                    "meia": "R$ 11,00",
+                    "latitude": "-31.77251677",
+                    "longitude": "-52.3355627"
+                }
+            ]
+        }
+        
+    ]
+}

@@ -1,29 +1,66 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-
+//import { FilmesService } from '../filmes.service';
+import { Http } from '@angular/http';
 declare var google;
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: ['home.page.scss']
 })
 export class HomePage {
 
   map: any;
   dados: any[];
   automaticClose = false;
-    
-  constructor(private geolocation: Geolocation, private http: HttpClient) {
+  openf = false;
+  openc = false;
+  public lista_Filmes: Array<any>;
+  private baseURL : string = "https://api.themoviedb.org/3/movie/popular?";
+
+  constructor(private geolocation: Geolocation, private http: HttpClient, public FilmesServico: Http) {
     this.http.get('assets/bdcinema.json').subscribe(res => {
       this.dados = res['itens'];
       this.dados[0].open = false;
-      this.criarMap(this.dados);
-      
+      this.criarMap(this.dados);    
     });
+    this.criarobj();   
   }
   
+  toggleOpcaoF (){
+    this.openf = !this.openf;
+  }
+
+  toggleOpcaoC (){
+    this.openc = !this.openc;
+  }
+
+  toggleFilmes (index){
+    this.lista_Filmes[index].open = !this.lista_Filmes[index].open;
+    if (this.automaticClose && this.lista_Filmes[index].open){
+      this.lista_Filmes
+      .filter((item, itemIndex) => itemIndex != index)
+      .map(item => item.open = false);
+    }
+  }
+
+
+  criarobj(){    
+    this.FilmesServico.get(this.baseURL + this.getApikey()).subscribe(
+      data => {
+        const film = (data as any);
+        const film_json = JSON.parse(film._body);
+        this.lista_Filmes = film_json.results;
+        console.log(this.lista_Filmes);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+
+
   toggleSection (index){
     this.dados[index].open = !this.dados[index].open;
     if (this.automaticClose && this.dados[index].open){
@@ -72,4 +109,10 @@ export class HomePage {
       console.log('Erro ao recuperar sua posição', error);
     });
   }
+
+  private getApikey() : string {
+    return "api_key=3e6dab4c5064c53cbd54bf643e1e9fea";
+  }
+
+
 }

@@ -1,18 +1,12 @@
 <ion-item class="child-item" text-wrap detail="false" lines="none">
   <ion-row no-padding align-items-center>
-    <ion-col size="9">
-      <ion-row no-padding>
-        <ion-col size="12">
-          <h3>{{ objeto.name }}</h3>
-        </ion-col>
-        <ion-col size="12">
-          <p text-lowercase color="medium">{{ objeto.endereco }}</p>
-        </ion-col>
-      </ion-row>
-    </ion-col>
-    <ion-col size="3" text-right>
-      <ion-button fill="outline" (click)="buyItem(objeto)">{{ objeto.inteira }}</ion-button>
-      <ion-button fill="outline" (click)="buyItem(objeto)">{{ objeto.meia }}</ion-button>
+    <ion-col>
+      <h4><b>{{ objeto.name }}</b></h4>   
+      <p text-lowercase color="medium"><b>Endereço:</b> {{ objeto.endereco }}</p>
+      <ion-label>Ingressos: </ion-label>
+      <ion-button fill="outline" (click)="buyItem(objeto)">Inteira {{ objeto.inteira }}</ion-button>
+      <ion-button fill="outline" (click)="buyItem(objeto)">Meia {{ objeto.meia }}</ion-button>
     </ion-col>
   </ion-row>
 </ion-item>
+  

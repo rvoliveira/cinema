@@ -17,8 +17,10 @@ export class HomePage {
   automaticClose = false;
   openf = false;
   openc = false;
+  openg = false;
   public lista_Filmes: Array<any>;
-  private baseURL : string = "https://api.themoviedb.org/3/movie/popular?";
+  public lista_Genero: Array<any>;
+  private baseURL : string = "https://api.themoviedb.org/3/";
 
   constructor(private geolocation: Geolocation, private http: HttpClient, public FilmesServico: Http) {
     this.http.get('assets/bdcinema.json').subscribe(res => {
@@ -26,7 +28,8 @@ export class HomePage {
       this.dados[0].open = false;
       this.criarMap(this.dados);    
     });
-    this.criarobj();   
+    this.getGenero();   
+    //this.getPopularFilm();   
   }
   
   toggleOpcaoF (){
@@ -35,6 +38,15 @@ export class HomePage {
 
   toggleOpcaoC (){
     this.openc = !this.openc;
+  }
+
+  toggleGenero (index){
+    this.lista_Genero[index].open = !this.lista_Genero[index].open;
+    if (this.automaticClose && this.lista_Genero[index].open){
+      this.lista_Genero
+      .filter((item, itemIndex) => itemIndex != index)
+      .map(item => item.open = false);
+    }
   }
 
   toggleFilmes (index){
@@ -47,18 +59,35 @@ export class HomePage {
   }
 
 
-  criarobj(){    
-    this.FilmesServico.get(this.baseURL + this.getApikey()).subscribe(
+  getPopularFilm(){    
+    this.FilmesServico.get(this.baseURL + "movie/popular?" + this.getApikey()).subscribe(
       data => {
         const film = (data as any);
         const film_json = JSON.parse(film._body);
         this.lista_Filmes = film_json.results;
-        console.log(this.lista_Filmes);
+        //console.log(this.lista_Filmes);
       }, error => {
         console.log(error);
       }
     )
   }
+
+
+  getGenero(){    
+    this.FilmesServico.get(this.baseURL + "genre/movie/list?language=pt-BR&" + this.getApikey()).subscribe(
+      data => {
+        const gen = (data as any);
+        const gen_json = JSON.parse(gen._body);
+        this.lista_Genero = gen_json.genres;
+
+        this.getPopularFilm();
+        //console.log(this.lista_Genero);
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
+
 
 
   toggleSection (index){
@@ -99,7 +128,7 @@ export class HomePage {
             position: destinationPosition, 
             map: this.map,
             title: dados[i].children[j].name,
-            //icon: './assets/icon/icon.png'       
+            icon: './assets/icon/movie.png'       
 
           });
         }

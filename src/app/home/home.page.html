@@ -12,26 +12,36 @@
     <ion-label>Filmes</ion-label>
   </ion-item>
   <div *ngIf="openf">    
-    <ion-list *ngFor="let filme of lista_Filmes; let i = index;" class="accordion-list" lines="none" detail="false" no-padding>
-      <ion-item tappable (click)="toggleFilmes(i)" [ngClass]="{'section-active': filme.open, 'section': !filme.open}">
-        <ion-icon slot="start" name="arrow-forward" *ngIf="!filme.open"></ion-icon>      
-        <ion-icon slot="start" name="arrow-down" *ngIf="filme.open"></ion-icon>
-        <ion-label>{{ filme.title }}</ion-label>
+    <ion-list *ngFor="let genero of lista_Genero; let g = index;" class="accordion-list" lines="none" detail="false" no-padding>
+      <ion-item tappable (click)="toggleGenero(g)" [ngClass]="{'section-active': genero.open, 'section': !genero.open}">
+        <ion-icon slot="start" name="arrow-forward" *ngIf="!genero.open"></ion-icon>      
+        <ion-icon slot="start" name="arrow-down" *ngIf="genero.open"></ion-icon>
+        <ion-label>{{ genero.name }}</ion-label>
       </ion-item>    
-      <div *ngIf="filme.open">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-subtitle>{{ filme.release_date}}</ion-card-subtitle>
-            <ion-card-title>{{ filme.title }}</ion-card-title>
-          </ion-card-header>
-          <img [src]= "'https://image.tmdb.org/t/p/w300/' + filme.backdrop_path" >
-          <ion-card-content>{{ filme.overview }}</ion-card-content>
-        </ion-card>
+      <div *ngIf="genero.open">
+        <ion-list *ngFor="let filme of lista_Filmes; let i = index;" class="accordion-list" lines="none" detail="false" no-padding>
+          <div *ngFor="let lg of filme.genre_ids; let k = index;">
+            <div *ngIf="genero.id == filme.genre_ids[k]">
+              <ion-item tappable (click)="toggleFilmes(i)" [ngClass]="{'section-active': filme.open, 'section': !filme.open}">
+                <ion-icon slot="start" name="arrow-forward" *ngIf="!filme.open"></ion-icon>      
+                <ion-icon slot="start" name="arrow-down" *ngIf="filme.open"></ion-icon>
+                <ion-label>{{ filme.title }}</ion-label>
+              </ion-item>    
+              <div *ngIf="filme.open">
+                <ion-card>
+                  <ion-card-header>
+                    <ion-card-subtitle>{{ filme.release_date}}</ion-card-subtitle>
+                    <ion-card-title>{{ filme.title }}</ion-card-title>
+                  </ion-card-header>
+                  <img [src]= "'https://image.tmdb.org/t/p/w300/' + filme.backdrop_path" >
+                  <ion-card-content>{{ filme.overview }}</ion-card-content>
+                </ion-card>
+              </div>
+            </div>
+          </div>  
+        </ion-list>
       </div>
-    </ion-list>
-
-
-    
+    </ion-list>    
   </div>
   <ion-item tappable (click)="toggleOpcaoC()" [ngClass]="{'section-active': openc, 'section': !openc}">
     <ion-icon slot="start" name="arrow-forward" *ngIf="!openc"></ion-icon>      
@@ -65,8 +75,7 @@
         </ion-list>
       </div>
       <p *ngIf="item.children.length == 0 && item.open" text-center>Desculpe, mas não a informações detalhadas</p>
-    </ion-list>
-  
+    </ion-list>  
   </div>
   <div #map id="map"></div>
 </ion-content>
